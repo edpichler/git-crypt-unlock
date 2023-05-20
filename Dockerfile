@@ -10,6 +10,7 @@ RUN apk --update add ca-certificates bash curl git g++ gnupg make openssh openss
 
 COPY LICENSE README.md /
 COPY entrypoint.sh /entrypoint.sh
+COPY exit.sh /exit.sh
 
 RUN apk --update add git-crypt git-lfs
 
