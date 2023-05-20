@@ -1,6 +1,5 @@
 ---
-name: Continuous Integration
-
+name: Release version in Github
 on:
   push:
     branches:
@@ -16,7 +15,7 @@ jobs:
       - name: Release
         uses: docker://antonyurchenko/git-release:latest
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ github.token }}
         # with:
         #   args: |
         #     darwin-amd64.zip
