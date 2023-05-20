@@ -1,5 +1,8 @@
 ## [1.1.0]
 
+### Added
+ - Started a changelog file.
+
 ### Fixed
 - Minor bugs.
 
