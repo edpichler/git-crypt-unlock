@@ -33,7 +33,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: echo -n ".${{ github.run_number }}" >> version.txt
       - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV 
-      - run: echo "TAG_PREFIX_REGEX=$(cat version.txt)" >> $GITHUB_ENV 
+
       - run: echo ${{ env.BUILD_VERSION }}
       - name: Release
         uses: docker://antonyurchenko/git-release:latest
@@ -41,6 +41,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           #RELEASE_NAME_PREFIX: "Release: "
           RELEASE_NAME: ${{ env.BUILD_VERSION }} 
+          TAG_PREFIX_REGEX:  ${{ env.BUILD_VERSION }}
         # with:
         #   args: |
         #     darwin-amd64.zip
