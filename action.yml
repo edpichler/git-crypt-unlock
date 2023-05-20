@@ -1,8 +1,8 @@
-name: 'Git-Crypt Unlock'
+name: 'Github Action for git-crypt'
 
-author: 'Danstan Onyango - Zemuldo'
+author: 'edpichler'
 
-description: 'Action to Unlock files encrypted using Git-Crypt, supports keys with passphrase'
+description: 'Action to Unlock (and then lock) files encrypted by git-crypt, also supporting gpg keys with passphrase'
 
 runs:
   using: 'docker'
