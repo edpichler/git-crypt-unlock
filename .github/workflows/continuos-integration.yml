@@ -10,40 +10,23 @@ on:
   pull_request:
     branches:
       - master
-
 jobs:
-
   test-the-unlock:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v3
-        
       - name: Unlock secrets (Run the current action)
         uses: ./
         env:
           GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
       - run: cat secret/secret.txt | grep "Secret data"
       - run: cat version.txt
-      - name: Beta Version
-        if: github.ref == 'refs/heads/develop' 
-        run: echo -n "-beta.${{ github.run_number }}" >> version.txt
       - name: Release version
-        if: github.ref == 'refs/heads/master'
         run: echo -n ".${{ github.run_number }}" >> version.txt
-      - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV 
-
+      - name: Beta suffix
+        run: echo -n "-beta" >> version.txt
+        if: github.ref == 'refs/heads/develop'       
+      - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV
       - run: echo ${{ env.BUILD_VERSION }}
-      - name: Release
-        uses: docker://antonyurchenko/git-release:latest
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          #RELEASE_NAME_PREFIX: "Release: "
-          RELEASE_NAME: ${{ env.BUILD_VERSION }} 
-          TAG_PREFIX_REGEX:  ${{ env.BUILD_VERSION }}
-        # with:
-        #   args: |
-        #     darwin-amd64.zip
-        #     linux-amd64.zip
-        #     windows-amd64.zip
+      - run: git tag v${{ env.BUILD_VERSION }}; git push origin --tags

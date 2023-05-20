@@ -1,0 +1,24 @@
+---
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+    tags:
+      - "v[0-9].+"
+
+jobs:
+  release-new-version:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Release
+        uses: docker://antonyurchenko/git-release:latest
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        # with:
+        #   args: |
+        #     darwin-amd64.zip
+        #     linux-amd64.zip
+        #     windows-amd64.zip
