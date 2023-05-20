@@ -8,7 +8,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   entrypoint: /entrypoint.sh
-  post-entrypoint: /exit.sh
+  # post-entrypoint: /exit.sh
 
 branding:
   icon: 'unlock'  
