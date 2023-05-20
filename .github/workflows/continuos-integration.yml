@@ -33,6 +33,7 @@ jobs:
         if: github.ref == 'refs/heads/master'
         run: echo -n ".${{ github.run_number }}" >> version.txt
       - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV 
+      - run: echo "TAG_PREFIX_REGEX=$(cat version.txt)" >> $GITHUB_ENV 
       - run: echo ${{ env.BUILD_VERSION }}
       - name: Release
         uses: docker://antonyurchenko/git-release:latest
