@@ -35,6 +35,7 @@ jobs:
       - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV
       - run: echo ${{ env.BUILD_VERSION }}
       - run: git tag v${{ env.BUILD_VERSION }}
+      - run: git commit -a -m "Add changes"
         # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
       - name: Push changes
         uses: ad-m/github-push-action@master
