@@ -29,11 +29,11 @@ jobs:
         if: github.ref == 'refs/heads/develop'       
       - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV
       - run: echo ${{ env.BUILD_VERSION }}
-      - run: git tag v${{ env.BUILD_VERSION }};
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
+      - run: git tag v${{ env.BUILD_VERSION }}
+        # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
       - name: Push changes
         uses: ad-m/github-push-action@master
-        if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
+        # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: ${{ github.ref }}
