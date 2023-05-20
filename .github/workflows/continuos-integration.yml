@@ -19,7 +19,6 @@ jobs:
         with:
           persist-credentials: false
           ref: ${{ github.head_ref }}
-          fetch-depth: 0
 
       - name: Unlock secrets (Run the current action)
         uses: ./
@@ -33,6 +32,7 @@ jobs:
         run: echo -n "-beta" >> version.txt
         if: github.ref == 'refs/heads/develop'       
       - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV
+      - run: git restore .
       - run: echo ${{ env.BUILD_VERSION }}
       - run: git tag v${{ env.BUILD_VERSION }}
       - run: git commit -a -m "Add changes"
