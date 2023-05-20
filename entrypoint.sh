@@ -1,10 +1,6 @@
 #!/bin/sh
 
-echo "$GPG_PRIVATE_KEY" | base64 -d > "$HOME"/git-crypt-key.asc
-
-gpg --batch --import "$HOME"/git-crypt-key.asc
-
-rm "$HOME"/git-crypt-key.asc
+echo "$GPG_PRIVATE_KEY" | base64 -d | gpg --batch --import
 
 gpgconf --kill gpg-agent
 
