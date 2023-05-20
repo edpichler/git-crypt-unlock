@@ -11,7 +11,7 @@ on:
     branches:
       - master
 jobs:
-  test-the-unlock:
+  run-tests:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
@@ -29,4 +29,9 @@ jobs:
         if: github.ref == 'refs/heads/develop'       
       - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV
       - run: echo ${{ env.BUILD_VERSION }}
-      - run: git tag v${{ env.BUILD_VERSION }}; git push origin --tags
+      - run: git tag v${{ env.BUILD_VERSION }};
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        branch: ${{ github.ref }}
