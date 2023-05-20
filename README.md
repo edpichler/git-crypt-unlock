@@ -32,5 +32,4 @@ jobs:
         GPG_KEY_GRIP: ${{ secrets.GPG_KEY_GRIP }}
         GPG_KEY_PASS: ${{ secrets.GPG_KEY_PASS }}
     # Any actions below here will have files have been decrypted.
-    # And 🚀🚀🚀
 ```
