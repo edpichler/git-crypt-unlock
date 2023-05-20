@@ -35,7 +35,7 @@ jobs:
         uses: ad-m/github-push-action@master
         # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
         with:
-          github_token: ${{ secrets.TOKEN_GITHUB }}
+          github_token: ${{ github.token }}
           branch: ${{ github.ref }}
           force: true
           tags: true
