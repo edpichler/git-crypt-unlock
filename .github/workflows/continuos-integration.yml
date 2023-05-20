@@ -32,7 +32,7 @@ jobs:
       - run: git tag v${{ env.BUILD_VERSION }}
         # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
       - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
+        uses: ad-m/github-push-action@master
         # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
         with:
           github_token: ${{ github.token }}
