@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - master
+      - release-ci
       - develop
 jobs:
   run-tests:
@@ -21,7 +22,6 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        branch: ${GITHUB_REF#refs/heads/}
+        branch: ${{ github.ref }}
         force: true
         tags: true
-
