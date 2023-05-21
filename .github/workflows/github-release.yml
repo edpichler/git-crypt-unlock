@@ -4,7 +4,6 @@ on:
   push:
     tags:
        - "v*" # the action will only work with semantic versioning https://semver.org/
-on:
   workflow_run:
     workflows: [Continuous Integration]
     types:
