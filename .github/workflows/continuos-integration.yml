@@ -1,13 +1,13 @@
 ---
-name: Continuous Integration old
-
+name: Continuous Integration
 on:
   push:
     branches:
       - master
       - develop
+      - release-ci
 jobs:
-  run-tests:
+  run-build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
