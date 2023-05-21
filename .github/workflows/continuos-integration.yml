@@ -1,26 +1,26 @@
 ---
 name: Continuous Integration
-
 on:
   push:
     branches:
       - master
       - develop
-  pull_request:
-    branches:
-      - master
-
+      - release-ci
 jobs:
-
-  test-the-unlock:
+  run-build:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        
-      - name: Unlock secrets (Run the current action)
-        uses: ./
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-      - run: cat secret/secret.txt | grep "Secret data"
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Commit files
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git tag -f v$(cat version.txt)
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: ${{ github.ref }}
+        force: true
+        tags: true
