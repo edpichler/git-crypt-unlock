@@ -11,18 +11,16 @@ on:
 jobs:
   release-new-version:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
     steps:
-      steps:
-      - name: Release
-        uses: docker://antonyurchenko/git-release:latest
-        if: github.ref == 'refs/heads/master'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_NAME_SUFFIX: ".${{ github.run_number }}"
-      - name: Beta Release
-        uses: docker://antonyurchenko/git-release:latest
-        if: github.ref == 'refs/heads/develop'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_NAME_SUFFIX: ".${{ github.run_number }}-beta"
+    - name: Release
+      uses: docker://antonyurchenko/git-release:latest
+      if: github.ref == 'refs/heads/master'
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        RELEASE_NAME_SUFFIX: ".${{ github.run_number }}"
+    - name: Beta Release
+      uses: docker://antonyurchenko/git-release:latest
+      if: github.ref == 'refs/heads/develop'
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+        RELEASE_NAME_SUFFIX: ".${{ github.run_number }}-beta"
