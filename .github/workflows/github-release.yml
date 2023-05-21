@@ -12,7 +12,7 @@ on:
 jobs:
   release-new-version:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop' || github.ref != 'refs/heads/master'
+    if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
     steps:
       steps:
       - name: Release
