@@ -8,25 +8,25 @@ on:
 jobs:
   release-new-version:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop' || github.ref != 'refs/heads/master'
-    steps:
-      - name: Release
-        uses: docker://antonyurchenko/git-release:latest
-        if: github.ref == 'refs/heads/develop'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_NAME_SUFFIX: ".${{ github.run_number }}-beta"
-    steps:
-      - name: Release
-        uses: docker://antonyurchenko/git-release:latest
-        if: github.ref == 'refs/heads/master'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_NAME_SUFFIX: ".${{ github.run_number }}"
+    # if: github.ref == 'refs/heads/develop' || github.ref != 'refs/heads/master'
+    # steps:
+    #   - name: Release
+    #     uses: docker://antonyurchenko/git-release:latest
+    #     # if: github.ref == 'refs/heads/develop'
+    #     env:
+    #       GITHUB_TOKEN: ${{ github.token }}
+    #       RELEASE_NAME_SUFFIX: ".${{ github.run_number }}-beta"
+    # steps:
+    #   - name: Release
+    #     uses: docker://antonyurchenko/git-release:latest
+    #     # if: github.ref == 'refs/heads/master'
+    #     env:
+    #       GITHUB_TOKEN: ${{ github.token }}
+    #       RELEASE_NAME_SUFFIX: ".${{ github.run_number }}"
     steps:
       - name: Test
         uses: docker://antonyurchenko/git-release:latest
-        if: github.ref == 'refs/heads/release-ci'
+        # if: github.ref == 'refs/heads/release-ci'
         env:
           GITHUB_TOKEN: ${{ github.token }}
-          RELEASE_NAME_SUFFIX: ".${{ github.run_number }}-development" # todo delete
+          # RELEASE_NAME_SUFFIX: ".${{ github.run_number }}-development" # todo delete
