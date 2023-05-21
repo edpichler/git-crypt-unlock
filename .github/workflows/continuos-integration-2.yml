@@ -1,0 +1,33 @@
+---
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - master
+      - develop
+      - release-ci
+  pull_request:
+    branches:
+      - master
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+      with:
+        ref: ${{ github.head_ref }}
+        fetch-depth: 0
+    - name: Commit files
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git tag v1.0.1.${{ github.run_number }}
+
+    # - name: Push changes
+    #   uses: ad-m/github-push-action@master
+    #   with:
+    #     branch: ${{ github.head_ref }}
+    #     force: true
+    #     tags: true
+
