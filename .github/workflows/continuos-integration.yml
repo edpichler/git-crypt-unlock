@@ -1,5 +1,5 @@
 ---
-name: Continuous Integration old
+name: Continuous Integration
 
 on:
   push:
