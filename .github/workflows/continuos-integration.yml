@@ -5,7 +5,6 @@ on:
   push:
     branches:
       - master
-      - release-ci
       - develop
 jobs:
   run-tests:
