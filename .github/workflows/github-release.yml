@@ -8,7 +8,7 @@ on:
 jobs:
   release-new-version:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop' || github.ref != 'refs/heads/master'
+    if: github.ref == 'refs/heads/develop' || github.ref != 'refs/heads/master' || github.ref != 'refs/heads/release-ci'
     steps:
       - name: Release
         uses: docker://antonyurchenko/git-release:latest
