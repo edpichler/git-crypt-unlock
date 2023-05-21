@@ -4,10 +4,6 @@ on:
   push:
     tags:
        - "v*" # the action will only work with semantic versioning https://semver.org/
-  workflow_run:
-    workflows: [Continuous Integration]
-    types:
-      - completed
 jobs:
   release-new-version:
     runs-on: ubuntu-latest
