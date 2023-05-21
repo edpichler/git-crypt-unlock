@@ -5,6 +5,7 @@ on:
     branches:
       - master
       - develop
+      - pre_releases # todo
 jobs:
   run-build:
     runs-on: ubuntu-latest
@@ -13,11 +14,15 @@ jobs:
       with:
         fetch-depth: 0
     - name: Release version
-      run: echo "BUILD_VERSION=$(cat version.txt).${{ github.run_number }}" >> $GITHUB_ENV 
+      run: | 
+        echo "BUILD_VERSION=$(cat version.txt).${{ github.run_number }}" >> $GITHUB_ENV 
+        echo "PRE_RELEASE=false" >> $GITHUB_ENV
       if: github.ref == 'refs/heads/master'
     - name: Beta Release version
-      run: echo "BUILD_VERSION=$(cat version.txt).${{ github.run_number }}-beta" >> $GITHUB_ENV 
-      if: github.ref == 'refs/heads/develop'
+      run: |
+        echo "BUILD_VERSION=$(cat version.txt).${{ github.run_number }}-beta" >> $GITHUB_ENV 
+        echo "PRE_RELEASE=true" >> $GITHUB_ENV
+      # if: github.ref == 'refs/heads/develop'
     - name: Commit files
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
@@ -40,4 +45,4 @@ jobs:
         # body: | 
         #   ${{ steps.Changelog.outputs.changelog }}
         draft: false
-        prerelease: false
+        prerelease: ${{ env.PRE_RELEASE }}
