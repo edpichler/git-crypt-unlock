@@ -24,10 +24,10 @@ jobs:
         git config --local user.name "github-actions[bot]"
         git tag v1.0.1.${{ github.run_number }}
 
-    # - name: Push changes
-    #   uses: ad-m/github-push-action@master
-    #   with:
-    #     branch: ${{ github.head_ref }}
-    #     force: true
-    #     tags: true
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: ${{ github.head_ref }}
+        force: true
+        tags: true
 
