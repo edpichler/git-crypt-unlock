@@ -22,7 +22,7 @@ jobs:
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
-        branch: release-ci #${{ github.head_ref }}
+        branch: ${GITHUB_REF#refs/heads/}
         force: true
         tags: true
 
