@@ -5,7 +5,6 @@ on:
     branches:
       - master
       - develop
-      - release-ci
 jobs:
   run-build:
     runs-on: ubuntu-latest
@@ -13,14 +12,32 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
+    - name: Release version
+      run: echo "BUILD_VERSION=$(cat version.txt).${{ github.run_number }}" >> $GITHUB_ENV 
+      if: github.ref == 'refs/heads/master'
+    - name: Beta Release version
+      run: echo "BUILD_VERSION=$(cat version.txt).${{ github.run_number }}-beta" >> $GITHUB_ENV 
+      if: github.ref == 'refs/heads/develop'
     - name: Commit files
       run: |
         git config --local user.email "github-actions[bot]@users.noreply.github.com"
         git config --local user.name "github-actions[bot]"
-        git tag -f v$(cat version.txt)
+        git tag -f ${{ env.BUILD_VERSION }}
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
         branch: ${{ github.ref }}
         force: true
         tags: true
+    - name: Create Release
+      id: create_release
+      uses: actions/create-release@latest
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
+      with:
+        tag_name: ${{ env.BUILD_VERSION }}
+        release_name: ${{ env.BUILD_VERSION }}
+        # body: | 
+        #   ${{ steps.Changelog.outputs.changelog }}
+        draft: false
+        prerelease: false
