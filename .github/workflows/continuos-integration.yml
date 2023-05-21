@@ -1,46 +1,28 @@
 ---
-name: Continuous Integration
+name: Continuous Integration old
 
 on:
   push:
     branches:
       - master
       - develop
-  pull_request:
-    branches:
-      - master
+      - release-ci
 jobs:
   run-tests:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-          ref: ${{ github.head_ref }}
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+    - name: Commit files
+      run: |
+        git config --local user.email "github-actions[bot]@users.noreply.github.com"
+        git config --local user.name "github-actions[bot]"
+        git tag -f v$(cat version.txt)
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: release-ci #${{ github.head_ref }}
+        force: true
+        tags: true
 
-      - name: Unlock secrets (Run the current action)
-        uses: ./
-        env:
-          GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
-      - run: cat secret/secret.txt | grep "Secret data"
-      - run: cat version.txt
-      - name: Release version
-        run: echo -n ".${{ github.run_number }}" >> version.txt
-      - name: Beta suffix
-        run: echo -n "-beta" >> version.txt
-        if: github.ref == 'refs/heads/develop'       
-      - run: echo "BUILD_VERSION=$(cat version.txt)" >> $GITHUB_ENV
-      - run: git restore .
-      - run: echo ${{ env.BUILD_VERSION }}
-      - run: git tag v${{ env.BUILD_VERSION }}
-      - run: git commit -a -m "Add changes"
-        # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
-      - name: Push changes
-        uses: ad-m/github-push-action@master
-        # if: github.ref == 'refs/heads/develop' || github.ref == 'refs/heads/master'
-        with:
-          github_token: ${{ github.token }}
-          branch: ${{ github.ref }}
-          force: true
-          tags: true
