@@ -2,9 +2,10 @@
 name: Release version in Github
 on:
   push:
-    # branches:
-    #   - master
-    #   - develop
+    branches:
+      # - master
+      # - develop
+      - release-ci
     tags:
        - "v*"
 
