@@ -45,4 +45,4 @@ jobs:
         # body: | 
         #   ${{ steps.Changelog.outputs.changelog }}
         draft: false
-        prerelease: ${{ env.PRE_RELEASE }}
+        prerelease: true
