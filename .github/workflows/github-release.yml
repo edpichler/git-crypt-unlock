@@ -3,19 +3,14 @@ name: Release version in Github
 on:
   push:
     tags:
-       - "v*"
+       - "v*" # the action will only work with semantic versioning https://semver.org/
 
 jobs:
   release-new-version:
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/develop' || github.ref != 'refs/heads/master' || github.ref != 'refs/heads/release-ci'
+    if: github.ref == 'refs/heads/develop' || github.ref != 'refs/heads/master'
     steps:
       - name: Release
         uses: docker://antonyurchenko/git-release:latest
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        # with:
-        #   args: |
-        #     darwin-amd64.zip
-        #     linux-amd64.zip
-        #     windows-amd64.zip
