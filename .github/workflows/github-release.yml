@@ -12,5 +12,6 @@ jobs:
     steps:
       - name: Release
         uses: docker://antonyurchenko/git-release:latest
+        if: github.ref == 'refs/heads/develop' || github.ref != 'refs/heads/master'
         env:
           GITHUB_TOKEN: ${{ github.token }}
