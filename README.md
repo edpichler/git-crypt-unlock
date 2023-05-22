@@ -26,7 +26,7 @@ jobs:
     steps:
     - uses: actions/checkout@v1
     - name: Git-Crypt Unlock
-      uses: edpichler/github-action-git-crypt@1.0.0.166
+      uses: edpichler/github-action-git-crypt@1.0.0.170
       env: 
         GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         GPG_KEY_GRIP: ${{ secrets.GPG_KEY_GRIP }}
