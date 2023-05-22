@@ -1,6 +1,6 @@
 # How to setup Secrets
 
-Assuming you are using Git-Crypt to encrypt files on your repository. Note that the keys used here are fake and don't exist.
+Assuming you are using Git-Crypt to encrypt files on your repository.
 
 ## Key-ID and Key-Grip
 
@@ -8,7 +8,7 @@ First list the keys:
 
 ```shell
 
-gpg --list-public 
+gpg -k
 
 ```
 
@@ -44,12 +44,7 @@ Use the sub keygrip `22FFE68D641883FBA8BB2872F7BE5BED55279AE4` as the `GPG_KEY_G
 Export the private key to ascii using `KEYID` ie `7990C753D77DA6742978E3E9876E1372C66DC017`
 
 ```shell
-gpg -a --export-secret-keys $KEYID > exportedKeyFilename.asc
-```
-Take the content of the file and encode to base64 using 
-
-```shell
-echo "$(cat exportedKeyFilename.asc | base64)" 
+gpg -a --export-secret-keys $KEYID | base64 
 ```
 
 Take the base64 string from above command and assign to `GPG_PRIVATE_KEY`
@@ -58,7 +53,6 @@ Take the base64 string from above command and assign to `GPG_PRIVATE_KEY`
 
 Now take create a new GitHub secret `GPG_KEY_PASS` whose value is the passphrase of your GPG key.
 
-And you are all set
 
 ## Wrap up
 
