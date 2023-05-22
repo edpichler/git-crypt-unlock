@@ -1,4 +1,4 @@
-# Git-Crypt Unlock
+# Unwlock a repository encrypted with Git-Crypt 
 
 GitHub action for unlocking files encrypted using Git-Crypt on your repository, and then locking it again when the job finishes.
 
