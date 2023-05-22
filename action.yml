@@ -1,8 +1,8 @@
-name: 'Github Action for git-crypt'
+name: 'Github Action for unlocking git-crypt secrets'
 
 author: 'edpichler'
 
-description: 'Action to Unlock (and then lock) files encrypted by git-crypt, also supporting gpg keys with passphrase'
+description: 'Github Action to Unlock (and then lock) files encrypted by git-crypt, also supporting gpg keys with passphrase'
 
 runs:
   using: 'docker'
@@ -11,5 +11,5 @@ runs:
   post-entrypoint: /exit.sh
 
 branding:
-  icon: 'unlock'  
+  icon: 'key'  
   color: 'green'
