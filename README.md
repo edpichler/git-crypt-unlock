@@ -9,6 +9,7 @@ To use this action, you need a GPG key, its grip and passphrase on the secrets s
 - `GPG_KEY_GRIP` = `The sub key-grip`
 - `GPG_PRIVATE_KEY` = `Base64 encoded version of the private key`
 - `GPG_KEY_PASS` = `Key passphrase`
+- `REPOSITORY_PATH` = A path to another folder, in case the repository you want to unlock is in another folder.
 
 [Here is how to get the GPG key/secrets](SETUP_KEYS.md)
 
@@ -31,6 +32,7 @@ jobs:
         GPG_PRIVATE_KEY: ${{ secrets.GPG_PRIVATE_KEY }}
         GPG_KEY_GRIP: ${{ secrets.GPG_KEY_GRIP }}
         GPG_KEY_PASS: ${{ secrets.GPG_KEY_PASS }}
+        REPOSITORY_PATH: my-sub-folder
     # Any actions below here will have files have been decrypted.
     # At the end, everything will be locked again.
 ```
