@@ -46,8 +46,9 @@ Export the private key to ascii using `KEYID` ie `7990C753D77DA6742978E3E9876E13
 ```shell
 gpg -a --export-secret-keys $KEYID | base64 
 ```
-
 Take the base64 string from above command and assign to `GPG_PRIVATE_KEY`
+
+**Important:** remove the blank lines you find between the "---... KEY BLOCK ---". For some reason git-crypt will not understand it!
 
 ## Passphrase
 
